@@ -6,51 +6,52 @@ class Empregado
  end
 
  def calcularInss
-  if (@salarioBruto <= ParametrosInss.FAIXA[0])
+  if (@salarioBruto <= 1659.38)
     @inss = @salarioBruto * 0.08
-  elsif ((@salarioBruto < ParametrosInss.FAIXALIMITE[0]) && (@salarioBruto <= ParametrosInss.FAIXA[1]))
+  elsif ((@salarioBruto < 1659.39) && (@salarioBruto <= 2765.66))
     @inss = @salarioBruto * 0.09
-  elsif ((@salarioBruto < ParametrosInss.FAIXALIMITE[1]) && (@salarioBruto <= ParametrosInss.FAIXA[2]))
+  elsif ((@salarioBruto < 2765.67) && (@salarioBruto <= 5531.31))
     @inss = @salarioBruto * 0.11
   else
-    @inss = ParametrosInss.TETO * 0.11
+    @inss = 4663.75 * 0.11
   end
  end
-end
-# CLASSE PARAMETROS INSS
-class ParametrosInss
- @FAIXA = [1659.38, 2765.66, 5531.31]
- @FAIXALIMITE = [1659.39, 2765.67, 5531.32]
- @TETO = 4663.75
-end
-# CLASSE GERENCIAR EMPREGADOS
-class GerenciarEmpregados
- @listaEmpregado = []
 
- def adicionarEmpregado(e = Empregado)
-  @listaEmpregado.push(e)
- end
- def removerEmpregado(e = Empregado)
-  @listaEmpregado.delete(e)
+ def toString
+  "----- EMPREGADO -----
+  CODIGO : #{codigo} 
+  NOME   : #{nome}
+  SETOR  : #{setor}
+  SALARIO: #{salarioBruto}
+  INSS   : #{inss}
+  -------</>------------"
  end
 end
 # -----------------------------------------------------------------#
-emp = Empregado.new()
+vetor = []
+indice = 0
+opc = 0
+puts "Quantos empregados quer armazenar"
+num = gets.chomp.to_i
+
+while (opc != num)
+vetor[indice] = Empregado.new
 puts "CODIGO : "
-emp.codigo = gets.chomp.to_i
+vetor[indice].codigo = gets.chomp.to_i
 puts "NOME   : "
-emp.nome = gets.chomp
+vetor[indice].nome = gets.chomp
 puts "SETOR  : "
-emp.setor = gets.chomp
+vetor[indice].setor = gets.chomp
 puts "SALARIO: "
-emp.salarioBruto = gets.chomp.to_f
+vetor[indice].salarioBruto = gets.chomp.to_f
+vetor[indice].calcularInss
 
-
-
-=begin
-ge = GerenciarEmpregados.new
-ge.adicionarEmpregado(emp)
-ge.listaEmpregado.each do |item|
-    puts item
+indice = indice + 1
+opc = opc + 1
 end
-=end
+
+vetor.each do |item|
+  puts item.toString
+  puts "\n"
+end
+
