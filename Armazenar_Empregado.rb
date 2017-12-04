@@ -1,5 +1,9 @@
+require_relative 'parametrosinssmod.rb'
+
 # CLASSE EMPREGADO
 class Empregado
+ include ParametrosInss
+
  attr_accessor :codigo, :nome, :setor, :salarioBruto, :inss
 
  def Empregado()
@@ -16,13 +20,7 @@ class Empregado
     @inss = ParametrosInss::TETO * 0.11
   end
  end
- # CLASSE PARAMETROS INSS
- class ParametrosInss
-  FAIXA = [1659.38, 2765.66, 5531.31]
-  LIMITEFAIXA = [1659.39, 2765.67, 5531.32]
-  TETO = 4663.75
- end
-
+ 
  def toString
   "----- EMPREGADO -----
   CODIGO : #{codigo} 
