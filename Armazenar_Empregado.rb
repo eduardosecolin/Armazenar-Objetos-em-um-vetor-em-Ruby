@@ -6,15 +6,21 @@ class Empregado
  end
 
  def calcularInss
-  if (@salarioBruto <= 1659.38)
+  if (@salarioBruto <= ParametrosInss::FAIXA[0])
     @inss = @salarioBruto * 0.08
-  elsif ((@salarioBruto < 1659.39) && (@salarioBruto <= 2765.66))
+  elsif ((@salarioBruto < ParametrosInss::LIMITEFAIXA[0]) && (@salarioBruto <= ParametrosInss::FAIXA[1]))
     @inss = @salarioBruto * 0.09
-  elsif ((@salarioBruto < 2765.67) && (@salarioBruto <= 5531.31))
+  elsif ((@salarioBruto < ParametrosInss::LIMITEFAIXA[1]) && (@salarioBruto <= ParametrosInss::FAIXA[2]))
     @inss = @salarioBruto * 0.11
   else
-    @inss = 4663.75 * 0.11
+    @inss = ParametrosInss::TETO * 0.11
   end
+ end
+ # CLASSE PARAMETROS INSS
+ class ParametrosInss
+  FAIXA = [1659.38, 2765.66, 5531.31]
+  LIMITEFAIXA = [1659.39, 2765.67, 5531.32]
+  TETO = 4663.75
  end
 
  def toString
